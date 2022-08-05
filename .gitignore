@@ -119,3 +119,4 @@ run/
 
 local.properties
 /changelog.txt
+/setup/gen.lock
