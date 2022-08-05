@@ -73,11 +73,11 @@ if (!file("setup/gen.lock").exists()) {
 //  Create mods.toml
     dir = "src/main/resources/META-INF"
     mkdir(dir)
-    def pathToModsFile = dir + "mods.toml"
+    def pathToModsFile = dir + "/mods.toml"
     def modsFile = file(pathToModsFile)
     modsFile.createNewFile()
     templateString = String.join("\n", file("setup/mods.toml").readLines())
-    modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loaderVer", loaderVer))
+    modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", loaderVer))
 
 //  Add files to git
     exec {
