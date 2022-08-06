@@ -66,10 +66,12 @@ if (!file("setup/gen.lock").exists()) {
 // Create main java file
     def pathToJavaFile = dir + "/" + noSpaceName + ".java"
     def mainJavaFile = file(pathToJavaFile)
-    mainJavaFile.createNewFile()
-    def templateString = ""
-    templateString = String.join("\n", file("setup/ModSetup.java").readLines())
-    mainJavaFile.write(templateString.replaceAll("pkgname", lowerName).replaceAll("ModSetup", noSpaceName))
+    if (!mainJavaFile.exists()) {
+        mainJavaFile.createNewFile()
+        def templateString = ""
+        templateString = String.join("\n", file("setup/ModSetup.java").readLines())
+        mainJavaFile.write(templateString.replaceAll("pkgname", lowerName).replaceAll("ModSetup", noSpaceName))
+    }
 
 
 //  Create mods.toml
@@ -77,9 +79,11 @@ if (!file("setup/gen.lock").exists()) {
     mkdir(dir)
     def pathToModsFile = dir + "/mods.toml"
     def modsFile = file(pathToModsFile)
-    modsFile.createNewFile()
-    templateString = String.join("\n", file("setup/mods.toml").readLines())
-    modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", loaderVer))
+    if (!modsFile.exists()) {
+        modsFile.createNewFile()
+        templateString = String.join("\n", file("setup/mods.toml").readLines())
+        modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", loaderVer))
+    }
 
 //  Add files to git
     exec {
