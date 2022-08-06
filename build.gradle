@@ -34,9 +34,11 @@ ext {
     mcVersions = mcVersions.replaceAll(" ", "").split(",")
 }
 
-def localProperties = new Properties()
-localProperties.load(new FileInputStream(rootProject.file("local.properties")))
-localProperties.each { prop -> project.ext.set(prop.key, prop.value) }
+if (file("local.properties").exists()) {
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+    localProperties.each { prop -> project.ext.set(prop.key, prop.value) }
+}
 
 apply plugin: 'net.minecraftforge.gradle'
 if (!useOfficialMappings) {
@@ -282,6 +284,12 @@ jar {
 
 jar.finalizedBy('reobfJar')
 if (cfEnabled) {
+    if (!file("local.properties").exists()) {
+        propFile = file("local.properties")
+        propFile.createNewFile()
+        propFile.write("apiToken=")
+    }
+
     tasks.register "publishToCurseforge", {
         group "publish"
         def finalChangelog = ""
