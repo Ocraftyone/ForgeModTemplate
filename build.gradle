@@ -49,6 +49,8 @@ if (useMixins) {
 
     def path = "scr/resources/" + noSpaceName + ".mixins.json"
     if (!file(path).exists()) {
+        def dir = "src/main/java/com/ocraftyone/" + lowerName + "/mixin/"
+        mkdir(dir)
         def mixinFile = file(path)
         mixinFile.createNewFile()
         def templateFile = file("setup/template.mixins.json")
@@ -318,19 +320,6 @@ if (cfEnabled) {
                             changelog = textArea(rows: 6, columns: 30)
                         }
 
-                        /*label(text: "Release Type")
-                        panel {
-                            var group = new ButtonGroup()
-                            var update = {
-                                finalReleaseType = group.getSelection().actionCommand
-                            }
-                            var release = radioButton(text: "Release", actionPerformed: update, actionCommand: "release")
-                            var beta = radioButton(text: "Beta", actionPerformed: update, actionCommand: "beta")
-                            var alpha = radioButton(text: "Alpha", actionPerformed: update, actionCommand: "alpha")
-                            group.add(release)
-                            group.add(beta)
-                            group.add(alpha)
-                        }*/
                         panel {
                             button(text: "OK", actionPerformed: {
                                 finalChangelog = changelog.text
