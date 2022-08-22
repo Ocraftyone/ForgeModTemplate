@@ -84,7 +84,7 @@ if (!file("setup/gen.lock").exists()) {
     if (!modsFile.exists()) {
         modsFile.createNewFile()
         templateString = String.join("\n", file("setup/mods.toml").readLines())
-        modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", loaderVer))
+        modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", minLoaderVer))
     }
 
 //  Add files to git
