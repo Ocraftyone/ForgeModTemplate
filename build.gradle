@@ -47,7 +47,7 @@ if (!useOfficialMappings) {
 if (useMixins) {
     apply plugin: 'org.spongepowered.mixin'
 
-    def path = "scr/resources/" + noSpaceName + ".mixins.json"
+    def path = "src/resources/" + noSpaceName + ".mixins.json"
     if (!file(path).exists()) {
         def dir = "src/main/java/com/ocraftyone/" + lowerName + "/mixin/"
         mkdir(dir)
