@@ -32,6 +32,7 @@ ext {
     useAT = Boolean.parseBoolean(useAT)
     cfEnabled = Boolean.parseBoolean(cfEnabled)
     mcVersions = mcVersions.replaceAll(" ", "").split(",")
+    groupNameSlash = groupName.replaceAll(".", "/")
 }
 
 if (file("local.properties").exists()) {
@@ -49,12 +50,12 @@ if (useMixins) {
 
     def path = "src/resources/" + noSpaceName + ".mixins.json"
     if (!file(path).exists()) {
-        def dir = "src/main/java/com/ocraftyone/" + lowerName + "/mixin/"
+        def dir = "src/main/java/${groupNameSlash}/" + lowerName + "/mixin/"
         mkdir(dir)
         def mixinFile = file(path)
         mixinFile.createNewFile()
         def templateFile = file("setup/template.mixins.json")
-        mixinFile.write(String.join("\n", templateFile.readLines()).replaceAll("mixinpkg", "com.ocraftyone." + lowerName + ".mixin").replaceAll("refmappath", lowerName + ".refmap.json"))
+        mixinFile.write(String.join("\n", templateFile.readLines()).replaceAll("mixinpkg", "${groupName}." + lowerName + ".mixin").replaceAll("refmappath", lowerName + ".refmap.json"))
         exec {
             executable "git"
             args "add", path
@@ -63,7 +64,7 @@ if (useMixins) {
 }
 
 if (!file("setup/gen.lock").exists()) {
-    def dir = "src/main/java/com/ocraftyone/" + lowerName
+    def dir = "src/main/java/${groupNameSlash}/" + lowerName
     mkdir(dir)
 // Create main java file
     def pathToJavaFile = dir + "/" + noSpaceName + ".java"
@@ -84,7 +85,7 @@ if (!file("setup/gen.lock").exists()) {
     if (!modsFile.exists()) {
         modsFile.createNewFile()
         templateString = String.join("\n", file("setup/mods.toml").readLines())
-        modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", minLoaderVer))
+        modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", minLoaderVer).replaceALl("AUTHOR", author).replaceAll("LICENSE", license).replaceAll("DESCRIPTION", description))
     }
 
 //  Add files to git
@@ -95,7 +96,7 @@ if (!file("setup/gen.lock").exists()) {
     file("setup/gen.lock").createNewFile()
 }
 
-group = 'com.ocraftyone'
+group = groupName
 version = "forge-" + jarMCVer + "-" + buildVer
 
 java {
