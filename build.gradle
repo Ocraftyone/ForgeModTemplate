@@ -84,7 +84,7 @@ if (!file("setup/gen.lock").exists()) {
     def modsFile = file(pathToModsFile)
     if (!modsFile.exists()) {
         modsFile.createNewFile()
-        templateString = String.join("\n", file("setup/mods.toml").readLines())
+        var templateString = String.join("\n", file("setup/mods.toml").readLines())
         modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", minLoaderVer).replaceALl("AUTHOR", author).replaceAll("LICENSE", license).replaceAll("DESCRIPTION", description))
     }
 
