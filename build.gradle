@@ -93,7 +93,7 @@ if (!file("setup/gen.lock").exists()) {
         executable "git"
         args "add", pathToJavaFile, pathToModsFile
     }
-    file("setup/gen.lock").write("This file prevents the generation of the the mods.toml and main java file from running again.\nDelete to regen")
+    file("setup/gen.lock").write("This file prevents the generation of the the mods.toml and main java file from running again.\nDelete to regenerate.")
 }
 
 group = groupName
