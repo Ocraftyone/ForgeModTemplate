@@ -48,7 +48,7 @@ if (!useOfficialMappings) {
 if (useMixins) {
     apply plugin: 'org.spongepowered.mixin'
 
-    def path = "src/resources/" + noSpaceName + ".mixins.json"
+    def path = "src/main/resources/" + noSpaceName + ".mixins.json"
     if (!file(path).exists()) {
         def dir = "src/main/java/${groupNameSlash}/" + lowerName + "/mixin/"
         mkdir(dir)
@@ -85,7 +85,7 @@ if (!file("setup/gen.lock").exists()) {
     if (!modsFile.exists()) {
         modsFile.createNewFile()
         var templateString = String.join("\n", file("setup/mods.toml").readLines())
-        modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", minLoaderVer).replaceALl("AUTHOR", author).replaceAll("LICENSE", license).replaceAll("DESCRIPTION", description))
+        modsFile.write(templateString.replaceAll("MODID", lowerName).replaceAll("DISPLAYNAME", projectName).replaceAll("mcVerRange", mcVerRange).replaceAll("loadVer", minLoaderVer).replaceAll("AUTHOR", author).replaceAll("LICENSE", license).replaceAll("DESCRIPTION", description))
     }
 
 //  Add files to git
