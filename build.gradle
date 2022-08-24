@@ -32,7 +32,7 @@ ext {
     useAT = Boolean.parseBoolean(useAT)
     cfEnabled = Boolean.parseBoolean(cfEnabled)
     mcVersions = mcVersions.replaceAll(" ", "").split(",")
-    groupNameSlash = groupName.replaceAll(".", "/")
+    groupNameSlash = groupName.replaceAll("[.]", "/")
 }
 
 if (file("local.properties").exists()) {
