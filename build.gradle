@@ -299,6 +299,10 @@ if (cfEnabled) {
         var propFile = file("local.properties")
         propFile.write("apiToken=")
     }
+    
+    if (!file("changelog.txt").exists()) {
+        file("changelog.txt").createNewFile()
+    }
 
     tasks.register "publishToCurseforge", {
         group "publish"
